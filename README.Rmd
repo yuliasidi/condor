@@ -1,0 +1,135 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# condor
+
+The goal of condor is to ...
+
+## Installation
+
+You can install condor from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("yuliasidi/condor")
+```
+
+# Using ssh package to interact with uconn cluster
+
+load library
+```{r}
+library(ssh)
+```
+
+## create ssh connection to cluster
+
+```{r}
+
+session <- ssh_connect(Sys.getenv('UCONN_USER'))
+
+```
+
+## Transfering files to and from cluster
+
+Example: path to a file
+
+```{r}
+
+file_path <- R.home("COPYING")
+
+file_path
+
+```
+ 
+local   ==> cluster
+```{r}
+
+scp_upload(session, file_path)
+
+```
+ 
+cluster ==> local
+```{r}
+
+scp_download(session, "COPYING", to = tempdir())
+
+```
+
+check that the file passed back and forth is the still the same
+
+```{r}
+
+c(
+  tools::md5sum(file_path),
+  tools::md5sum(file.path(tempdir(), "COPYING"))
+  )
+
+```
+
+# Running commands from local on the cluster
+
+commands to run
+
+```{r}
+
+cmds <- c(
+  'ls jobs/cluster', # list files in jobs cluster
+  'cd jobs/cluster', # move to jobs/cluster
+  'cat Rcalcpi.condor' # print the lines of Rcalcpi.condor
+)
+
+```
+
+Run without returning anything to local R  
+
+```{r remedy001}
+
+ssh_exec_wait(session, command = cmds)
+
+```
+
+Capturing the output from the cluster terminal as a list object in the local `R`
+
+```{r remedy002}
+
+out <- ssh_exec_internal(session, command = cmds)
+
+```
+ 
+status of the lines that were run 
+ 
+```{r}
+
+out$status # 0 means everything was run ok
+
+```
+
+## Printing the contents of out
+
+using `ssh_print`
+ 
+```{r}
+
+condor::ssh_print(out$stdout)
+
+```
+
+# close ssh connection to cluster
+
+```{r remedy004}
+      
+ssh_disconnect(session)
+
+```
+  
