@@ -10,7 +10,7 @@ build_template <- function(
   jobs = 1
 ){
   this_template <- whisker::whisker.render(
-    template = readLines('~/Desktop/Rtips/template.condor'),
+    template = readLines(system.file('template.condor',package = 'condor')),
     data = list(
       file = file,
       transfer = transfer,
