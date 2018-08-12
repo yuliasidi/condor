@@ -1,12 +1,11 @@
 Package: condor
 Type: Package
-Title: What the Package Does (Title Case)
+Title: HTCondor Cluster usage with R
 Version: 0.1.0
-Author: Who wrote it
+Authors@R: person("Jonathan Sidi",role=c("aut","cre"),email="yonis@metrumrg.com")
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line) Use four spaces
-         when indenting paragraphs within the Description.
-License: What license is it under?
+Description: Reproducible workflow of HTCondor with R using `batchtools` and `future`. 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: whisker
