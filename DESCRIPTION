@@ -9,4 +9,6 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: whisker
+URL: https://github.com/yuliasidi/condor
+BugReports: https://github.com/yuliasidi/condor/issues
 RoxygenNote: 6.1.0
