@@ -4,12 +4,15 @@
 \alias{build_template}
 \title{FUNCTION_TITLE}
 \usage{
-build_template(file, transfer = "YES", transfer_time = "ON_EXIT",
-  args = "$(Process)", tag = "job", init_dir = "jobs",
-  input_files = NULL, output_files = NULL, jobs = 1)
+build_template(file, job_type = "test", transfer = "YES",
+  transfer_time = "ON_EXIT", args = "$(Process)", tag = "job",
+  init_dir = "jobs", input_files = NULL, output_files = NULL,
+  jobs = 1, template_file = NULL)
 }
 \arguments{
 \item{file}{PARAM_DESCRIPTION}
+
+\item{job_type}{PARAM_DESCRIPTION, Default: 'test'}
 
 \item{transfer}{PARAM_DESCRIPTION, Default: 'YES'}
 
@@ -26,6 +29,8 @@ build_template(file, transfer = "YES", transfer_time = "ON_EXIT",
 \item{output_files}{PARAM_DESCRIPTION, Default: NULL}
 
 \item{jobs}{PARAM_DESCRIPTION, Default: 1}
+
+\item{template_file}{character, path to save the template file, Default: NULL}
 }
 \value{
 OUTPUT_DESCRIPTION

@@ -1,0 +1,15 @@
+Warning message:
+NAs introduced by coercion 
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+Error in set.seed(idx) : supplied seed is not a valid integer
+Execution halted

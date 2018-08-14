@@ -1,7 +1,7 @@
 executable = {{file}}
 universe = vanilla
 Requirements = ParallelSchedulingGroup == "stats group"
-+AccountingGroup = "group_statistics_testjob.username"
++AccountingGroup = "group_statistics_{{job_type}}job.username"
 
 should_transfer_files = {{transfer}}
 when_to_transfer_output = {{transfer_time}}
