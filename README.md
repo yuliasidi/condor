@@ -16,7 +16,7 @@ devtools::install_github("yuliasidi/condor")
 ```
 
 SSH Key Setup
-=============
+-------------
 
   - Installation of the R package [ssh](https://www.github.com/ropensci/ssh)
   - setting up an ssh key
