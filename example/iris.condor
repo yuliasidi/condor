@@ -12,7 +12,7 @@ error     = err/iris-$(Process).err
 log       = log/iris.log
 
 initialdir = jobs/run
-transfer_input_files = ../ysidi/lib/
-# transfer_output_files =
+transfer_input_files = ../myfiles/lib/
+# transfer_output_files = 
 
 Queue 5

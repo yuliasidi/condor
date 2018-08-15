@@ -2,12 +2,19 @@
 
 # Prepare: collect command line arguments,
 # set iteration number and a unique seed
-idx <- as.numeric(commandArgs())
+
+args <- commandArgs()
+
+idx <- args[length(args)]
+
+cat(idx)
 
 .libPaths('ysidi/lib')
 
 library(dplyr)
 
-set.seed(986)
+set.seed(Sys.time())
 
-saveRDS(iris%>%dplyr::sample_n(idx),file = sprintf('iris_%02d.rds',idx))
+saveRDS(iris%>%dplyr::sample_n(idx),
+        file = sprintf('iris_%s.rds',idx)
+        )

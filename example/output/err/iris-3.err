@@ -1,5 +1,3 @@
-Warning message:
-NAs introduced by coercion 
 
 Attaching package: 'dplyr'
 
@@ -11,5 +9,5 @@ The following objects are masked from 'package:base':
 
     intersect, setdiff, setequal, union
 
-Error in set.seed(idx) : supplied seed is not a valid integer
+Error: size is not a numeric or integer vector
 Execution halted

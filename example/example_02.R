@@ -8,7 +8,7 @@ jobs <- 5
 
 initdir <- 'jobs/run'
 
-transfer_input_files <- 'jobs/ysidi/lib/'
+transfer_input_files <- '../myfiles/lib/'
 
 build_template(
   file = 'iris.R',
@@ -23,35 +23,34 @@ library(ssh)
 
 session <- ssh_connect(Sys.getenv('UCONN_USER'))
 
-scp_upload(session,
+ssh::scp_upload(session,
            files = c('example/iris.R','example/iris.condor'),
            to = '~'
            )
 
 condor::condor_permissions(session,file = 'iris.R')
 
-ssh_exec_wait(session,
-              command = c('mkdir jobs/run',
-                          'mkdir jobs/run/log',
-                          'mkdir jobs/run/out',
-                          'mkdir jobs/run/err'))
+condor::create_dirs(session, file = 'example/iris.condor')
 
 condor::condor_submit(session,'iris.condor')
 
 condor::condor_q(session)
 
-dir.create('example/output/data',recursive = TRUE)
+#my laptop
+#dir.create('example/output/data',recursive = TRUE)
 
-purrr::walk2(c('log','out','err','*.rds'),
-             c('','','','data'),
-            .f=function(x,y){
-              scp_download(session,
-               files = sprintf('jobs/run/%s',x),
-               to = file.path('example/output',y)
-               )
-})
+condor::pull(session,
+     from = c('jobs/run/log',
+       'jobs/run/out',
+       'jobs/run/err',
+       'jobs/run/*.rds'),
+     to = c('example/output',
+            'example/output',
+            'example/output',
+            'example/output/data'))
 
-ssh_exec_wait(session, command = 'rm -r -f jobs/run')
+condor::cleanup_remote(session)
 
-ssh_disconnect(session)
-Dan
+condor::cleanup_local(dir = 'example/output',tag = 'iris')
+
+ssh::ssh_disconnect(session)
