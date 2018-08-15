@@ -8,6 +8,6 @@ idx <- as.numeric(commandArgs())
 
 library(dplyr)
 
-set.seed(idx)
+set.seed(986)
 
 saveRDS(iris%>%dplyr::sample_n(idx),file = sprintf('iris_%02d.rds',idx))
