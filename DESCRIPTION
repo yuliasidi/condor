@@ -2,7 +2,8 @@ Package: condor
 Type: Package
 Title: HTCondor Cluster usage with R
 Version: 0.1.0
-Authors@R: person("Jonathan Sidi",role=c("aut","cre"),email="yonicd@gmail.com")
+Authors@R: c(person("Jonathan Sidi",role=c("aut","cre"),email="yonicd@gmail.com"),
+             person("Yulia Sidi",role=c("aut"),email="yulia.sidi@uconn.edu"))
 Maintainer: The package maintainer <yonicd@gmail.com>
 Description: Reproducible workflow of HTCondor with R using `batchtools` and `future`. 
 License: MIT + file LICENSE

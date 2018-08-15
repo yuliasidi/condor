@@ -3,7 +3,7 @@
 condor
 ======
 
-The goal of condor is to ...
+The goal of condor is to run R batch commands in `HTCondor` on a remote cluster directly from a local terminal or `RStudio` work environment. 
 
 Installation
 ------------
@@ -14,6 +14,23 @@ You can install condor from github with:
 # install.packages("devtools")
 devtools::install_github("yuliasidi/condor")
 ```
+
+SSH Key Setup
+-------------
+
+  - Installation of the R package [ssh](https://www.github.com/ropensci/ssh)
+  - setting up an ssh key
+    - create a key pairing on the local machine
+    - on the remote machine 
+      - In the user directory (`~`) create the subdirectory `~/.ssh` if it is not already there
+        - `mkdir ~/.ssh`
+      - Create a file in `~/.ssh` called `authorized_keys`
+        - `touch ~/.ssh/authorized_keys`
+    - copy the public key contents to the remote server into .ssh/authorized_keys
+      - `cat ~/.ssh/id_rsa.pub | pbcopy` (mac)
+    - paste the contents of the clipboard on the remote into `~/.ssh/authorized_keys`
+      - `echo '[PASTE CONTENTS OF CLIPBOARD]' > ~/.ssh/authorized_keys`
+      
 
 Using ssh package to interact with uconn cluster
 ================================================
