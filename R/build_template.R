@@ -1,6 +1,7 @@
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param file PARAM_DESCRIPTION
+#' @param username username on cluster
 #' @param transfer PARAM_DESCRIPTION, Default: 'YES'
 #' @param transfer_time PARAM_DESCRIPTION, Default: 'ON_EXIT'
 #' @param job_type  PARAM_DESCRIPTION, Default: 'standard'
@@ -26,6 +27,7 @@
 #' @importFrom whisker whisker.render
 build_template <- function(
   file,
+  username = system2("whoami", stdout = TRUE),
   job_type = c('standard', 'test', 'short', 'long'),
   transfer = 'YES',
   transfer_time = 'ON_EXIT',
@@ -45,7 +47,7 @@ build_template <- function(
       transfer = transfer,
       if_not_standard_job = ifelse(job_type == 'standard', '# ', ''),
       job_type = job_type,
-      username = system2("whoami", stdout = TRUE),
+      username = username,
       transfer_time = transfer_time,
       args = paste0(args,collapse = ' '),
       tag=tag,
