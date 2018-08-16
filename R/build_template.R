@@ -3,7 +3,7 @@
 #' @param file PARAM_DESCRIPTION
 #' @param transfer PARAM_DESCRIPTION, Default: 'YES'
 #' @param transfer_time PARAM_DESCRIPTION, Default: 'ON_EXIT'
-#' @param job_type  PARAM_DESCRIPTION, Default: 'test'
+#' @param job_type  PARAM_DESCRIPTION, Default: 'standard'
 #' @param args PARAM_DESCRIPTION, Default: '$(Process)'
 #' @param tag PARAM_DESCRIPTION, Default: 'job'
 #' @param init_dir PARAM_DESCRIPTION, Default: 'jobs'
@@ -26,7 +26,7 @@
 #' @importFrom whisker whisker.render
 build_template <- function(
   file,
-  job_type = 'test',
+  job_type = c('standard', 'test', 'short', 'long'),
   transfer = 'YES',
   transfer_time = 'ON_EXIT',
   args = '$(Process)',
@@ -37,12 +37,15 @@ build_template <- function(
   jobs = 1,
   template_file = NULL
 ){
+  job_type <- match.arg(job_type)
   this_template <- whisker::whisker.render(
     template = readLines(system.file('template.condor',package = 'condor')),
     data = list(
       file = file,
       transfer = transfer,
+      if_not_standard_job = ifelse(job_type == 'standard', '# ', ''),
       job_type = job_type,
+      username = system2("whoami", stdout = TRUE),
       transfer_time = transfer_time,
       args = paste0(args,collapse = ' '),
       tag=tag,
@@ -64,9 +67,9 @@ build_template <- function(
   this_template <- paste0(x,collapse = '\n')
 
   if(!is.null(template_file)){
-    cat(this_template,file = template_file)
+    cat(this_template, '\n', file = template_file)
   }else{
-    cat(this_template)
+    cat(this_template, '\n')
   }
 
 }
