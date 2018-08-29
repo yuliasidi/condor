@@ -52,8 +52,8 @@ build_template <- function(
       args = paste0(args,collapse = ' '),
       tag=tag,
       init_dir = init_dir,
-      input_files = paste0(input_files,collapse = ' '),
-      output_files = paste0(output_files,collapse = ' '),
+      input_files = paste0(input_files,collapse = ', '),
+      output_files = paste0(output_files,collapse = ', '),
       jobs = jobs
     )
   )

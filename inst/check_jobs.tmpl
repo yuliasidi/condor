@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+## compute the number of all my running jobs
+function num_job()
+{
+    count=$(( $(condor_q $(whoami) | tail -n 1 | \
+                    sed -n -e 's/ jobs;.*//p') ));
+    echo "[$(date)]: num. of all running jobs is $count.";
+    return 0;
+}
+
+## check job status
+num_job
+while [[ $count -gt 0 ]]
+do
+    sleep {{sleeptime}}
+    num_job
+done
+echo "[$(date)]: all jobs have been completed.  Cheers!"
+
+## send notification when jobs are finished
+/usr/sbin/sendmail -vt < email_myself.txt
+echo "[$(date)]: sent notification."
+
+rm email_myself.txt check_jobs.sh check_jobs.out

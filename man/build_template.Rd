@@ -4,7 +4,8 @@
 \alias{build_template}
 \title{FUNCTION_TITLE}
 \usage{
-build_template(file, job_type = "test", transfer = "YES",
+build_template(file, username = system2("whoami", stdout = TRUE),
+  job_type = c("standard", "test", "short", "long"), transfer = "YES",
   transfer_time = "ON_EXIT", args = "$(Process)", tag = "job",
   init_dir = "jobs", input_files = NULL, output_files = NULL,
   jobs = 1, template_file = NULL)
@@ -12,7 +13,9 @@ build_template(file, job_type = "test", transfer = "YES",
 \arguments{
 \item{file}{PARAM_DESCRIPTION}
 
-\item{job_type}{PARAM_DESCRIPTION, Default: 'test'}
+\item{username}{username on cluster}
+
+\item{job_type}{PARAM_DESCRIPTION, Default: 'standard'}
 
 \item{transfer}{PARAM_DESCRIPTION, Default: 'YES'}
 

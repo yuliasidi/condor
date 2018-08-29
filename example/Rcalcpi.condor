@@ -1,18 +1,19 @@
 executable = calcpi.R
 universe = vanilla
 Requirements = ParallelSchedulingGroup == "stats group"
-+AccountingGroup = "group_statistics_testjob.username"
++AccountingGroup = "group_statistics_testjob.yuliasidi"
 
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
-arguments = 10000000 pihat-$(Process).dat
+arguments = $(Process)
 output    = out/pi-$(Process).Rout
 error     = err/pi-$(Process).err
 log       = log/pi.log
 
-initialdir = jobs
-# transfer_input_files = 
-# transfer_output_files = 
+initialdir = jobs/run
+# transfer_input_files =
+# transfer_output_files =
+
 
 Queue 5

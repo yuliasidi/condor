@@ -7,7 +7,7 @@ set.seed(Sys.time())
 n <- as.numeric(args[length(args)-1])
 
 # Collect n samples
-x <- runif(n)
+x <- runif(n,k)
 y <- runif(n)
 
 # Compute and output the value of pi

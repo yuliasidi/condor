@@ -6,8 +6,15 @@ condor_q <- function(session){
 
 #' @export
 #' @importFrom ssh ssh_exec_wait
-condor_submit <- function(session,file){
+condor_submit <- function(session,file,notify = TRUE,...){
+
   ssh::ssh_exec_wait(session, command = sprintf('condor_submit %s',file))
+
+  if(notify){
+    make_check_jobs(session,...)
+    ssh::ssh_exec_wait(session,
+                       command = 'nohup bash check_jobs.sh > check_jobs.out 2>&1 &')
+  }
 }
 
 #' @export
@@ -26,6 +33,8 @@ condor_rm <- function(session,jobs){
 #' @importFrom ssh ssh_exec_wait
 cleanup_remote <- function(session, dir = 'jobs/run'){
   ssh::ssh_exec_wait(session, command = sprintf('rm -r -f %s', dir))
+  ssh::ssh_exec_wait(session, command = sprintf('rm *.R'))
+  ssh::ssh_exec_wait(session, command = sprintf('rm *.condor'))
 }
 
 #' @export
@@ -51,6 +60,7 @@ create_dirs <- function(session, file){
   error <- file.path(initialdir,dirname(lookup('error',x)))
   log <- file.path(initialdir,dirname(lookup('log',x)))
 
+
   ssh::ssh_exec_wait(session,
                 command = c(
                   sprintf('mkdir %s', initialdir),
@@ -59,6 +69,10 @@ create_dirs <- function(session, file){
                   sprintf('mkdir %s', error)
                   )
                 )
+
+  executable <- lookup('executable',x)
+
+  condor_permissions(session,executable)
 
 }
 
@@ -74,4 +88,10 @@ pull <- function(session, from, to){
 lookup <- function(pattern, x){
   ret <- gsub('^(.*?)=','',x[grep(sprintf('^%s',pattern),x)])
   gsub('^\\s+|\\s$','',ret)
+}
+
+#' @export
+#' @importFrom ssh ssh_exec_wait
+ssh_fn <- function(session,fn,ls_call){
+  ssh::ssh_exec_wait(session, command = sprintf('%s %s',fn, ls_call))
 }
