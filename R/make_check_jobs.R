@@ -1,5 +1,25 @@
+#' @title Build bash file to track jobs on Condor
+#' @description Progrmatically build file to track Condor runs on the cluster.
+#' @param session session object
+#' @param sleeptime character, time interval to check if jobs are still running,
+#'  Default: '10s'
+#' @param email character, email address to send message on end of jobs,
+#'  Default: Sys.getenv("UCONN_EMAIL")
+#' @param subject character, subject line of the email, Default: 'auto email from stats cluster'
+#' @param body character, body contents of the email,
+#'  Default: 'All jobs have been completed.  Cheers!'
+#' @return NULL
+#' @examples
+#' \dontrun{
+#' make_check_jobs(session)
+#' }
+#' @seealso
+#'  \code{\link[whisker]{whisker.render}}
+#'  \code{\link[ssh]{scp}}
+#' @rdname make_check_jobs
 #' @export
 #' @importFrom whisker whisker.render
+#' @importFrom ssh scp_upload
 make_check_jobs <- function(session,
                             sleeptime = '10s',
                             email = Sys.getenv('UCONN_EMAIL'),

@@ -1,19 +1,14 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param err_path PARAM_DESCRIPTION, Default: 'output/err'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
+#' @title Summary of err files
+#' @description Post processing summary containing all the unique errors and warnings
+#' found in the err subdirectory.
+#' @param err_path character, path to err subdirectory, Default: 'output/err'
+#' @return character
 #' @rdname read_errs
 #' @export
 #' @importFrom purrr map_chr
 #' @importFrom tibble enframe
 #' @importFrom dplyr group_by summarise ungroup pull
+#' @importFrom rlang !! sym
 read_errs <- function(err_path = 'output/err'){
 
 err_files <- list.files(err_path,full.names = TRUE)
@@ -28,11 +23,11 @@ names(err_lines) <- basename(err_files)
 
 err_lines%>%
   tibble::enframe()%>%
-  dplyr::group_by(value)%>%
-  dplyr::summarise(name=paste0(name,collapse = ','))%>%
+  dplyr::group_by(!!rlang::sym('value'))%>%
+  dplyr::summarise(name=paste0(!!rlang::sym('name'),collapse = ','))%>%
   dplyr::ungroup()%>%
-  dplyr::summarise(s = sprintf('%s\n\n%s',name,value))%>%
-  dplyr::pull(s)%>%
+  dplyr::summarise(s = sprintf('%s\n\n%s',!!rlang::sym('name'),!!rlang::sym('value')))%>%
+  dplyr::pull(!!rlang::sym('s'))%>%
   writeLines()
 
 }

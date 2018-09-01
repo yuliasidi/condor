@@ -1,15 +1,21 @@
 Package: condor
 Type: Package
 Title: HTCondor Cluster usage with R
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(person("Jonathan Sidi",role=c("aut","cre"),email="yonicd@gmail.com"),
              person("Yulia Sidi",role=c("aut"),email="yulia.sidi@uconn.edu"))
 Maintainer: The package maintainer <yonicd@gmail.com>
-Description: Reproducible workflow of HTCondor with R using `batchtools` and `future`. 
+Description: Reproducible workflow of HTCondor with R using `ssh`. 
+Depends: R (>= 3.2.0)
+Imports: whisker,ssh,purrr,tibble,dplyr,rlang,magrittr
+Remotes: ropensci/ssh
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: whisker, dplyr, purrr, tibble
 URL: https://github.com/yuliasidi/condor
 BugReports: https://github.com/yuliasidi/condor/issues
-RoxygenNote: 6.1.0
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -2,26 +2,17 @@
 % Please edit documentation in R/read_errs.R
 \name{read_errs}
 \alias{read_errs}
-\title{FUNCTION_TITLE}
+\title{Summary of err files}
 \usage{
 read_errs(err_path = "output/err")
 }
 \arguments{
-\item{err_path}{PARAM_DESCRIPTION, Default: 'output/err'}
+\item{err_path}{character, path to err subdirectory, Default: 'output/err'}
 }
 \value{
-OUTPUT_DESCRIPTION
+character
 }
 \description{
-FUNCTION_DESCRIPTION
-}
-\details{
-DETAILS
-}
-\examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
+Post processing summary containing all the unique errors and warnings
+found in the err subdirectory.
 }

@@ -1,25 +1,31 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param file PARAM_DESCRIPTION
-#' @param username username on cluster
-#' @param transfer PARAM_DESCRIPTION, Default: 'YES'
-#' @param transfer_time PARAM_DESCRIPTION, Default: 'ON_EXIT'
-#' @param job_type  PARAM_DESCRIPTION, Default: 'standard'
-#' @param args PARAM_DESCRIPTION, Default: '$(Process)'
-#' @param tag PARAM_DESCRIPTION, Default: 'job'
-#' @param init_dir PARAM_DESCRIPTION, Default: 'jobs'
-#' @param input_files PARAM_DESCRIPTION, Default: NULL
-#' @param output_files PARAM_DESCRIPTION, Default: NULL
-#' @param jobs PARAM_DESCRIPTION, Default: 1
-#' @param template_file character, path to save the template file, Default: NULL
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @title Build Condor File
+#' @description Parameterized construction of a condor file.
+#' @param file characer, filename of the R script to run on the cluster
+#' @param username character, username on cluster,
+#'   Default: system2("whoami", stdout = TRUE)
+#' @param transfer character, transfer file back, Default: 'YES'
+#' @param transfer_time character, when to transfer the file, Default: 'ON_EXIT'
+#' @param job_type  character, type of cluster to use,
+#'   Default: c('standard', 'test', 'short', 'long')
+#' @param args character, arguments to pass to the worker nodes from condor,
+#'   Default: '$(Process)'
+#' @param tag character, name of job for subdirectory naming scheme,
+#'   Default: 'job'
+#' @param init_dir character, initial directory for condor to invoke script,
+#'   Default: 'jobs'
+#' @param input_files character, names of files to pass to the worker nodes,
+#'   Default: NULL
+#' @param output_files character, names of files to return from the worker nodes,
+#'   Default: NULL
+#' @param jobs numeric, number of nodes to run on, Default: 1
+#' @param template_file character, name of the saved template file, Default: NULL
+#' @return If template_file is NULL then the populated template is printed to the console.
+#'
+#' @details see
+#' \href{http://research.cs.wisc.edu/htcondor/manual/v8.7/SubmittingaJob.html#x17-280002.5}{Condor User Manual}
+#'  for full user manual on what can be put in a Condor submission file.
 #' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
+#' build_template(file='file.R')
 #' @seealso
 #'  \code{\link[whisker]{whisker.render}}
 #' @rdname build_template
