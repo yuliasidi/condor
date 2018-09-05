@@ -2,54 +2,59 @@
 % Please edit documentation in R/build_template.R
 \name{build_template}
 \alias{build_template}
-\title{FUNCTION_TITLE}
+\title{Build Condor File}
 \usage{
 build_template(file, username = system2("whoami", stdout = TRUE),
   job_type = c("standard", "test", "short", "long"), transfer = "YES",
   transfer_time = "ON_EXIT", args = "$(Process)", tag = "job",
-  init_dir = "jobs", input_files = NULL, output_files = NULL,
-  jobs = 1, template_file = NULL)
+  init_dir = "jobs", input_files = NULL, output_files = NULL, jobs = 1,
+  template_file = NULL)
 }
 \arguments{
-\item{file}{PARAM_DESCRIPTION}
+\item{file}{characer, filename of the R script to run on the cluster}
 
-\item{username}{username on cluster}
+\item{username}{character, username on cluster,
+Default: system2("whoami", stdout = TRUE)}
 
-\item{job_type}{PARAM_DESCRIPTION, Default: 'standard'}
+\item{job_type}{character, type of cluster to use,
+Default: c('standard', 'test', 'short', 'long')}
 
-\item{transfer}{PARAM_DESCRIPTION, Default: 'YES'}
+\item{transfer}{character, transfer file back, Default: 'YES'}
 
-\item{transfer_time}{PARAM_DESCRIPTION, Default: 'ON_EXIT'}
+\item{transfer_time}{character, when to transfer the file, Default: 'ON_EXIT'}
 
-\item{args}{PARAM_DESCRIPTION, Default: '$(Process)'}
+\item{args}{character, arguments to pass to the worker nodes from condor,
+Default: '$(Process)'}
 
-\item{tag}{PARAM_DESCRIPTION, Default: 'job'}
+\item{tag}{character, name of job for subdirectory naming scheme,
+Default: 'job'}
 
-\item{init_dir}{PARAM_DESCRIPTION, Default: 'jobs'}
+\item{init_dir}{character, initial directory for condor to invoke script,
+Default: 'jobs'}
 
-\item{input_files}{PARAM_DESCRIPTION, Default: NULL}
+\item{input_files}{character, names of files to pass to the worker nodes,
+Default: NULL}
 
-\item{output_files}{PARAM_DESCRIPTION, Default: NULL}
+\item{output_files}{character, names of files to return from the worker nodes,
+Default: NULL}
 
-\item{jobs}{PARAM_DESCRIPTION, Default: 1}
+\item{jobs}{numeric, number of nodes to run on, Default: 1}
 
-\item{template_file}{character, path to save the template file, Default: NULL}
+\item{template_file}{character, name of the saved template file, Default: NULL}
 }
 \value{
-OUTPUT_DESCRIPTION
+If template_file is NULL then the populated template is printed to the console.
 }
 \description{
-FUNCTION_DESCRIPTION
+Parameterized construction of a condor file.
 }
 \details{
-DETAILS
+see
+\href{http://research.cs.wisc.edu/htcondor/manual/v8.7/SubmittingaJob.html#x17-280002.5}{Condor User Manual}
+for full user manual on what can be put in a Condor submission file.
 }
 \examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
+build_template(file='file.R')
 }
 \seealso{
 \code{\link[whisker]{whisker.render}}
