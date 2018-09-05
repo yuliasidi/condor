@@ -20,6 +20,12 @@ err_files <- list.files(err_path,full.names = TRUE)
 
 err_files <- err_files[file.info(err_files)['size']>0]
 
+if(length(err_files)==0){
+  message('No errors')
+  return(invisible(NULL))
+}
+
+
 err_lines <- purrr::map_chr(err_files,function(x){
   paste0(readLines(x),collapse = '\n')
   })
