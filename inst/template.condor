@@ -10,6 +10,7 @@ arguments = {{args}}
 output    = out/{{tag}}-$(Process).Rout
 error     = err/{{tag}}-$(Process).err
 log       = log/{{tag}}.log
+request_memory = {{mem}} GB
 
 initialdir = {{init_dir}}
 transfer_input_files = {{input_files}}

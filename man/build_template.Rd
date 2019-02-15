@@ -7,8 +7,8 @@
 build_template(file, username = system2("whoami", stdout = TRUE),
   job_type = c("standard", "test", "short", "long"), transfer = "YES",
   transfer_time = "ON_EXIT", args = "$(Process)", tag = "job",
-  init_dir = "jobs", input_files = NULL, output_files = NULL, jobs = 1,
-  template_file = NULL)
+  init_dir = "jobs", input_files = NULL, output_files = NULL,
+  jobs = 1, mem = 1, template_file = NULL)
 }
 \arguments{
 \item{file}{characer, filename of the R script to run on the cluster}
@@ -39,6 +39,8 @@ Default: NULL}
 Default: NULL}
 
 \item{jobs}{numeric, number of nodes to run on, Default: 1}
+
+\item{mem}{numeric, size of memory to request, Default: 1}
 
 \item{template_file}{character, name of the saved template file, Default: NULL}
 }

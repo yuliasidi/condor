@@ -18,6 +18,7 @@
 #' @param output_files character, names of files to return from the worker nodes,
 #'   Default: NULL
 #' @param jobs numeric, number of nodes to run on, Default: 1
+#' @param mem numeric, size of memory to request, Default: 1
 #' @param template_file character, name of the saved template file, Default: NULL
 #' @return If template_file is NULL then the populated template is printed to the console.
 #'
@@ -43,6 +44,7 @@ build_template <- function(
   input_files = NULL,
   output_files = NULL,
   jobs = 1,
+  mem = 1,
   template_file = NULL
 ){
   job_type <- match.arg(job_type)
@@ -60,6 +62,7 @@ build_template <- function(
       init_dir = init_dir,
       input_files = paste0(input_files,collapse = ', '),
       output_files = paste0(output_files,collapse = ', '),
+      mem = mem,
       jobs = jobs
     )
   )

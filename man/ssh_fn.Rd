@@ -4,7 +4,8 @@
 \alias{ssh_fn}
 \title{run terminal command on cluster}
 \usage{
-ssh_fn(session, .f = "whoami", intern = FALSE, convert_intern = TRUE, ...)
+ssh_fn(session, .f = "whoami", intern = FALSE, convert_intern = TRUE,
+  ...)
 }
 \arguments{
 \item{session}{session connection object}
